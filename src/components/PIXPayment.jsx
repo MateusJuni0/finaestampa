@@ -1,41 +1,62 @@
 import { useEffect, useRef, useState } from 'react'
-import QRCode from 'qrcode'
 
-export default function PIXPayment({ amount, orderId, onSuccess }) {
+export default function PIXPayment({ amount, orderId, onSuccess, customerEmail, customerName }) {
   const [qrCodeUrl, setQrCodeUrl] = useState('')
   const [pixCode, setPixCode] = useState('')
   const [copied, setCopied] = useState(false)
   const [checking, setChecking] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [paymentId, setPaymentId] = useState(null)
   const canvasRef = useRef(null)
   
   useEffect(() => {
-    generatePIX()
+    createPayment()
   }, [amount, orderId])
   
-  const generatePIX = () => {
-    // Gera payload PIX padrão EMV
-    const payload = generatePixPayload({
-      pixKey: '29.813.982/0001-12', // CNPJ
-      description: `Pedido #${orderId}`,
-      merchantName: 'FINA ESTAMPA',
-      merchantCity: 'SAO PAULO',
-      amount: amount.toFixed(2),
-      txid: orderId
-    })
+  const createPayment = async () => {
+    setLoading(true)
+    setError(null)
     
-    setPixCode(payload)
-    
-    // Gera QR Code
-    QRCode.toDataURL(payload, {
-      width: 300,
-      margin: 1,
-      color: {
-        dark: '#000000',
-        light: '#ffffff'
+    try {
+      const response = await fetch('/api/create-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          amount: amount.toFixed(2),
+          orderId,
+          email: customerEmail,
+          name: customerName
+        })
+      })
+      
+      const data = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao criar pagamento')
       }
-    }).then(url => {
-      setQrCodeUrl(url)
-    })
+      
+      // Salva ID do pagamento para verificação
+      setPaymentId(data.id)
+      
+      // Define QR Code (base64 ou URL)
+      if (data.qr_code_base64) {
+        setQrCodeUrl(`data:image/png;base64,${data.qr_code_base64}`)
+      }
+      
+      // Define código PIX copiável
+      if (data.qr_code) {
+        setPixCode(data.qr_code)
+      }
+      
+      setLoading(false)
+    } catch (err) {
+      console.error('Erro ao criar pagamento:', err)
+      setError(err.message)
+      setLoading(false)
+    }
   }
   
   const copyToClipboard = () => {
@@ -45,20 +66,58 @@ export default function PIXPayment({ amount, orderId, onSuccess }) {
   }
   
   const checkPayment = async () => {
-    setChecking(true)
-    // Simulação de verificação de pagamento
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    // Em produção, aqui você chamaria sua API para verificar o pagamento
-    // Por enquanto, simula sucesso após alguns segundos
-    const paid = Math.random() > 0.3 // 70% chance de "detectar" pagamento
-    
-    if (paid) {
-      onSuccess?.()
-    } else {
-      alert('⏳ Pagamento ainda não detectado. Tente novamente em alguns segundos.')
+    if (!paymentId) {
+      alert('⚠️ ID do pagamento não encontrado')
+      return
     }
+    
+    setChecking(true)
+    
+    try {
+      // Verifica status do pagamento via API
+      const response = await fetch(`/api/check-payment?id=${paymentId}`)
+      const data = await response.json()
+      
+      if (data.status === 'approved') {
+        onSuccess?.()
+      } else if (data.status === 'pending') {
+        alert('⏳ Pagamento ainda não confirmado. Aguarde alguns segundos e tente novamente.')
+      } else {
+        alert(`⚠️ Status do pagamento: ${data.status}`)
+      }
+    } catch (err) {
+      console.error('Erro ao verificar pagamento:', err)
+      alert('⚠️ Erro ao verificar pagamento. Tente novamente.')
+    }
+    
     setChecking(false)
+  }
+  
+  if (loading) {
+    return (
+      <div className="card space-y-6">
+        <div className="text-center py-12">
+          <div className="text-4xl mb-4">⏳</div>
+          <h3 className="text-xl font-bold mb-2">Gerando pagamento PIX...</h3>
+          <p className="text-white/60">Aguarde alguns instantes</p>
+        </div>
+      </div>
+    )
+  }
+  
+  if (error) {
+    return (
+      <div className="card space-y-6">
+        <div className="text-center py-12">
+          <div className="text-4xl mb-4">❌</div>
+          <h3 className="text-xl font-bold mb-2">Erro ao gerar pagamento</h3>
+          <p className="text-white/60 mb-4">{error}</p>
+          <button onClick={createPayment} className="btn btn-primary">
+            Tentar novamente
+          </button>
+        </div>
+      </div>
+    )
   }
   
   return (
@@ -129,61 +188,4 @@ export default function PIXPayment({ amount, orderId, onSuccess }) {
       </div>
     </div>
   )
-}
-
-// Função para gerar payload PIX padrão EMV
-function generatePixPayload({ pixKey, description, merchantName, merchantCity, amount, txid }) {
-  // Remove formatação do CNPJ
-  const cleanKey = pixKey.replace(/[^\d]/g, '')
-  
-  // Payload IDs
-  const payloadFormatIndicator = '000201'
-  const merchantAccountInfo = `0014BR.GOV.BCB.PIX01${(cleanKey.length).toString().padStart(2, '0')}${cleanKey}`
-  const merchantCategoryCode = '52040000'
-  const transactionCurrency = '5303986'
-  const transactionAmount = `54${(amount.length + 2).toString().padStart(2, '0')}${amount}`
-  const countryCode = '5802BR'
-  const merchantNameField = `59${merchantName.length.toString().padStart(2, '0')}${merchantName}`
-  const merchantCityField = `60${merchantCity.length.toString().padStart(2, '0')}${merchantCity}`
-  
-  // Informações adicionais
-  let additionalDataField = ''
-  if (txid) {
-    const txidField = `05${txid.length.toString().padStart(2, '0')}${txid}`
-    additionalDataField = `62${txidField.length.toString().padStart(2, '0')}${txidField}`
-  }
-  
-  const payload = 
-    payloadFormatIndicator +
-    merchantAccountInfo +
-    merchantCategoryCode +
-    transactionCurrency +
-    transactionAmount +
-    countryCode +
-    merchantNameField +
-    merchantCityField +
-    additionalDataField +
-    '6304'
-  
-  // Calcula CRC16
-  const crc16 = calculateCRC16(payload)
-  
-  return payload + crc16
-}
-
-// Calcula CRC16 CCITT
-function calculateCRC16(str) {
-  let crc = 0xFFFF
-  for (let i = 0; i < str.length; i++) {
-    crc ^= str.charCodeAt(i) << 8
-    for (let j = 0; j < 8; j++) {
-      if (crc & 0x8000) {
-        crc = (crc << 1) ^ 0x1021
-      } else {
-        crc = crc << 1
-      }
-    }
-  }
-  crc = crc & 0xFFFF
-  return crc.toString(16).toUpperCase().padStart(4, '0')
 }

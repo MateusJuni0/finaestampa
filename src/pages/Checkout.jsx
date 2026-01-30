@@ -331,6 +331,8 @@ export default function Checkout() {
                 <PIXPayment
                   amount={orderTotal}
                   orderId={orderId}
+                  customerEmail={formData.email}
+                  customerName={formData.name}
                   onSuccess={() => finishOrder(orderId)}
                 />
               )}
