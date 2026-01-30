@@ -87,7 +87,7 @@ export default function Checkout() {
           ].map((s) => (
             <div key={s.num} className="flex items-center">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all ${
-                step >= s.num ? 'bg-primary-500 text-white' : 'glass text-white/40'
+                step >= s.num ? 'bg-cyan-500 text-white' : 'glass text-white/40'
               }`}>
                 {s.num}
               </div>
@@ -233,7 +233,7 @@ export default function Checkout() {
                     <h3 className="text-xl font-bold mb-4">Forma de Pagamento</h3>
                     <div className="space-y-3">
                       <label className={`flex items-center p-4 rounded-xl cursor-pointer transition-all ${
-                        formData.paymentMethod === 'pix' ? 'glass ring-2 ring-primary-500' : 'glass glass-hover'
+                        formData.paymentMethod === 'pix' ? 'glass ring-2 ring-cyan-500' : 'glass glass-hover'
                       }`}>
                         <input
                           type="radio"
@@ -251,7 +251,7 @@ export default function Checkout() {
                       </label>
                       
                       <label className={`flex items-center p-4 rounded-xl cursor-pointer transition-all ${
-                        formData.paymentMethod === 'card' ? 'glass ring-2 ring-primary-500' : 'glass glass-hover'
+                        formData.paymentMethod === 'card' ? 'glass ring-2 ring-cyan-500' : 'glass glass-hover'
                       }`}>
                         <input
                           type="radio"

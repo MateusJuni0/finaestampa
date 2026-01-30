@@ -2,7 +2,7 @@ export default function ReviewCard({ review }) {
   return (
     <div className="card glass-hover">
       <div className="flex items-start gap-4">
-        <div className="w-12 h-12 rounded-full bg-primary-500/20 flex items-center justify-center text-xl font-bold text-primary-400">
+        <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center text-xl font-bold text-cyan-400">
           {review.name.charAt(0)}
         </div>
         <div className="flex-1">

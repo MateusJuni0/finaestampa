@@ -39,7 +39,7 @@ export default function Carrinho() {
                   />
                   
                   <div className="flex-1">
-                    <Link to={`/produto/${item.slug}`} className="font-bold hover:text-primary-400 transition-colors">
+                    <Link to={`/produto/${item.slug}`} className="font-bold hover:text-cyan-400 transition-colors">
                       {item.name}
                     </Link>
                     

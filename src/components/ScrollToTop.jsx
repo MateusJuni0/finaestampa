@@ -24,7 +24,7 @@ export default function ScrollToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-24 right-6 z-30 w-12 h-12 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 flex items-center justify-center"
+      className="fixed bottom-24 right-6 z-30 w-12 h-12 bg-cyan-500 hover:bg-blue-600 text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 flex items-center justify-center"
       aria-label="Voltar ao topo"
     >
       <svg

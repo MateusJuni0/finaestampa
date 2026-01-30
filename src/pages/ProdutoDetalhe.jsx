@@ -80,7 +80,7 @@ export default function ProdutoDetalhe() {
                     onClick={() => setSelectedImage(index)}
                     className={`glass rounded-xl p-2 overflow-hidden transition-all duration-300 ${
                       selectedImage === index
-                        ? 'ring-2 ring-primary-500 scale-105'
+                        ? 'ring-2 ring-cyan-500 scale-105'
                         : 'hover:scale-105'
                     }`}
                   >
@@ -120,7 +120,7 @@ export default function ProdutoDetalhe() {
               {/* Bulk Pricing */}
               {product.bulkPricing && (
                 <div className="glass rounded-xl p-4 space-y-2">
-                  <div className="font-semibold text-sm text-primary-400">Preços por Quantidade:</div>
+                  <div className="font-semibold text-sm text-cyan-400">Preços por Quantidade:</div>
                   {product.bulkPricing.map((tier, index) => (
                     <div key={index} className="text-sm text-white/70">
                       A partir de {tier.minQty} unidades: <span className="font-bold text-white">R$ {tier.price.toFixed(2)}</span> cada
@@ -147,7 +147,7 @@ export default function ProdutoDetalhe() {
                       onClick={() => setSelectedSize(size)}
                       className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
                         selectedSize === size
-                          ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/50'
+                          ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/50'
                           : 'glass glass-hover'
                       }`}
                     >
@@ -172,7 +172,7 @@ export default function ProdutoDetalhe() {
                       onClick={() => setSelectedColor(color)}
                       className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
                         selectedColor === color
-                          ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/50'
+                          ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/50'
                           : 'glass glass-hover'
                       }`}
                     >

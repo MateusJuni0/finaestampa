@@ -30,7 +30,7 @@ export default function ImageGallery({ images, alt }) {
                 onClick={() => setSelectedIndex(index)}
                 className={`glass rounded-xl p-1 overflow-hidden transition-all ${
                   selectedIndex === index
-                    ? 'ring-2 ring-primary-500'
+                    ? 'ring-2 ring-cyan-500'
                     : 'hover:ring-1 hover:ring-white/30'
                 }`}
               >

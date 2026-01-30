@@ -64,7 +64,7 @@ export default function Produtos() {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
                   selectedCategory === category.id
-                    ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/50'
+                    ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/50'
                     : 'glass glass-hover text-white/80'
                 }`}
               >
@@ -101,7 +101,7 @@ export default function Produtos() {
                     {/* Badges */}
                     <div className="absolute top-3 right-3 flex flex-col gap-2">
                       {product.originalPrice > product.price && (
-                        <div className="bg-primary-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                        <div className="bg-cyan-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
                           -{Math.round((1 - product.price / product.originalPrice) * 100)}%
                         </div>
                       )}
@@ -120,7 +120,7 @@ export default function Produtos() {
                     </div>
                   </div>
                   
-                  <h3 className="text-lg font-bold mb-2 group-hover:text-primary-400 transition-colors line-clamp-1">
+                  <h3 className="text-lg font-bold mb-2 group-hover:text-cyan-400 transition-colors line-clamp-1">
                     {product.name}
                   </h3>
                   
@@ -154,7 +154,7 @@ export default function Produtos() {
                   
                   {/* Bulk Pricing Info */}
                   {product.bulkPricing && (
-                    <div className="text-xs text-primary-400 mb-4">
+                    <div className="text-xs text-cyan-400 mb-4">
                       A partir de {product.bulkPricing[0].minQty} unidades: R$ {product.bulkPricing[0].price.toFixed(2)}
                     </div>
                   )}

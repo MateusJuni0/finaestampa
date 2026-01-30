@@ -36,8 +36,8 @@ export default function Home() {
       <section className="relative min-h-[90vh] flex items-center justify-center">
         {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-[800px] h-[800px] -top-40 -left-40 bg-primary-500/30 rounded-full blur-3xl animate-pulse float-slow"></div>
-          <div className="absolute w-[600px] h-[600px] -bottom-40 -right-40 bg-primary-600/20 rounded-full blur-3xl animate-pulse float-medium"></div>
+          <div className="absolute w-[800px] h-[800px] -top-40 -left-40 bg-cyan-500/30 rounded-full blur-3xl animate-pulse float-slow"></div>
+          <div className="absolute w-[600px] h-[600px] -bottom-40 -right-40 bg-blue-600/20 rounded-full blur-3xl animate-pulse float-medium"></div>
         </div>
         
         <div className="container-custom relative z-10">
@@ -45,7 +45,7 @@ export default function Home() {
             {/* Text Content */}
             <div className="space-y-8 animate-in">
               <div className="inline-flex items-center space-x-2 glass px-4 py-2 rounded-full">
-                <span className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
+                <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span>
                 <span className="text-sm font-medium">Desde 2015 em Capão da Canoa - RS</span>
               </div>
               
@@ -98,7 +98,7 @@ export default function Home() {
                 />
                 <div className="absolute -bottom-6 -left-6 glass rounded-2xl p-4 backdrop-blur-xl">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center">
                       <span className="text-2xl">⭐</span>
                     </div>
                     <div>
@@ -159,13 +159,13 @@ export default function Home() {
                       className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     {product.originalPrice > product.price && (
-                      <div className="absolute top-3 right-3 bg-primary-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      <div className="absolute top-3 right-3 bg-cyan-500 text-white px-3 py-1 rounded-full text-sm font-bold">
                         -{Math.round((1 - product.price / product.originalPrice) * 100)}%
                       </div>
                     )}
                   </div>
                   
-                  <h3 className="text-lg font-bold mb-2 group-hover:text-primary-400 transition-colors">
+                  <h3 className="text-lg font-bold mb-2 group-hover:text-cyan-400 transition-colors">
                     {product.name}
                   </h3>
                   
@@ -233,18 +233,18 @@ export default function Home() {
                 style={{ animationDelay: `${index * 150}ms` }}
               >
                 <div className="relative inline-flex items-center justify-center w-20 h-20 mb-6">
-                  <div className="absolute inset-0 bg-primary-500/20 rounded-full blur-xl"></div>
+                  <div className="absolute inset-0 bg-cyan-500/20 rounded-full blur-xl"></div>
                   <div className="relative glass rounded-full w-full h-full flex items-center justify-center text-3xl">
                     {step.icon}
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-xs font-bold">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center text-xs font-bold">
                     {step.number}
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-2">{step.title}</h3>
                 <p className="text-white/60 text-sm">{step.desc}</p>
                 {index < 3 && (
-                  <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-500/50 to-transparent -translate-x-1/2"></div>
+                  <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-cyan-500/50 to-transparent -translate-x-1/2"></div>
                 )}
               </div>
             ))}
@@ -278,7 +278,7 @@ export default function Home() {
       <section className="py-20">
         <div className="container-custom">
           <div className="card glass-hover text-center p-12 md:p-16 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-primary-600/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-600/20"></div>
             <div className="relative z-10">
               <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
                 Pronto para criar algo <span className="gradient-text">único</span>?

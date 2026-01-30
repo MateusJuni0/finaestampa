@@ -58,7 +58,7 @@ export default function Header() {
                 to={link.path}
                 className={`text-sm font-medium transition-colors duration-200 ${
                   location.pathname === link.path
-                    ? 'text-primary-400'
+                    ? 'text-cyan-400'
                     : 'text-white/80 hover:text-white'
                 }`}
               >
@@ -88,7 +88,7 @@ export default function Header() {
                 />
               </svg>
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
+                <span className="absolute -top-1 -right-1 bg-cyan-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
                   {cartItemCount}
                 </span>
               )}
@@ -123,7 +123,7 @@ export default function Header() {
                   to={link.path}
                   className={`text-sm font-medium px-4 py-3 rounded-xl transition-colors ${
                     location.pathname === link.path
-                      ? 'bg-primary-500/20 text-primary-400'
+                      ? 'bg-cyan-500/20 text-cyan-400'
                       : 'text-white/80 hover:bg-white/5 hover:text-white'
                   }`}
                 >

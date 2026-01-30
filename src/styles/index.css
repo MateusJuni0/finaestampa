@@ -34,9 +34,9 @@
   }
   
   .btn-primary {
-    @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white
-           hover:from-primary-600 hover:to-primary-700 
-           focus:ring-primary-500 shadow-lg shadow-primary-500/50;
+    @apply bg-gradient-to-r from-cyan-500 to-blue-600 text-white
+           hover:from-cyan-400 hover:to-blue-500 
+           focus:ring-cyan-500 shadow-lg shadow-cyan-500/50;
   }
   
   .btn-outline {
@@ -71,7 +71,7 @@
   
   /* Gradient Text */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 
+    @apply bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 
            bg-clip-text text-transparent;
   }
   

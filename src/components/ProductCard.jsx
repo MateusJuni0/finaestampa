@@ -21,7 +21,7 @@ export default function ProductCard({ product, index = 0 }) {
           {/* Badges */}
           <div className="absolute top-3 right-3 flex flex-col gap-2">
             {product.originalPrice > product.price && (
-              <div className="bg-primary-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+              <div className="bg-cyan-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
                 -{Math.round((1 - product.price / product.originalPrice) * 100)}%
               </div>
             )}
@@ -33,7 +33,7 @@ export default function ProductCard({ product, index = 0 }) {
           </div>
         </div>
         
-        <h3 className="text-lg font-bold mb-2 group-hover:text-primary-400 transition-colors line-clamp-1">
+        <h3 className="text-lg font-bold mb-2 group-hover:text-cyan-400 transition-colors line-clamp-1">
           {product.name}
         </h3>
         
