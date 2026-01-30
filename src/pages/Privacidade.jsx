@@ -1,7 +1,13 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useSEO } from '../utils/useSEO'
 
 export default function Privacidade() {
+  useSEO({
+    title: 'Política de Privacidade | LGPD - Fina Estampa',
+    description: 'Política de privacidade e proteção de dados da Fina Estampa. Em conformidade com a LGPD. Saiba como tratamos suas informações.',
+  })
+  
   const sections = [
     {
       icon: '📊',

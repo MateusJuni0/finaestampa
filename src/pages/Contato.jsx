@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useSEO } from '../utils/useSEO'
 
 export default function Contato() {
+  useSEO({
+    title: 'Contato | Fale Conosco - Fina Estampa',
+    description: 'Entre em contato com a Fina Estampa. WhatsApp (51) 99576-5088, email ou formulário. Atendimento direto com a proprietária Renata em Capão da Canoa/RS.',
+  })
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',

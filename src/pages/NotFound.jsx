@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useSEO } from '../utils/useSEO'
 
 export default function NotFound() {
+  useSEO({
+    title: 'Página não encontrada | Fina Estampa',
+    description: 'A página que você procura não existe ou foi movida.',
+  })
+  
   return (
     <div className="min-h-[80vh] flex items-center justify-center">
       <div className="text-center px-4">

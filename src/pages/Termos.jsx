@@ -1,7 +1,13 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useSEO } from '../utils/useSEO'
 
 export default function Termos() {
+  useSEO({
+    title: 'Termos de Uso | Fina Estampa',
+    description: 'Termos e condições de uso do site e serviços da Fina Estampa. Política de trocas, garantia, pagamentos e entrega.',
+  })
+  
   const sections = [
     {
       title: '1. Aceitação dos Termos',

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { products, categories } from '../utils/products'
 import { useCart } from '../utils/cartContext'
+import { useSEO } from '../utils/useSEO'
 
 const sortOptions = [
   { value: 'relevance', label: 'Relevância' },
@@ -13,6 +14,11 @@ const sortOptions = [
 ]
 
 export default function Produtos() {
+  useSEO({
+    title: 'Produtos Personalizados | Canecas, Camisetas, Chaveiros - Fina Estampa',
+    description: 'Catálogo completo de produtos personalizáveis. Canecas, camisetas, chaveiros, xícaras, bodies e muito mais. Sublimação profissional com entrega para todo Brasil.',
+  })
+  
   const [selectedCategory, setSelectedCategory] = useState('todos')
   const [searchTerm, setSearchTerm] = useState('')
   const [sortBy, setSortBy] = useState('relevance')

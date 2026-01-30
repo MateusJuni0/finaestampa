@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useSEO } from '../utils/useSEO'
 
 export default function Sobre() {
+  useSEO({
+    title: 'Sobre Nós | Fina Estampa - 10 Anos de História',
+    description: 'Conheça a história da Fina Estampa e da Renata. Desde 2015 criando produtos personalizados únicos em Capão da Canoa/RS. Atendimento humanizado e qualidade garantida.',
+  })
+  
   const timeline = [
     { year: '2015', title: 'O Começo', desc: 'Renata inicia a Fina Estampa em casa, com uma prensa e muito sonho. Os primeiros clientes eram amigos e familiares.' },
     { year: '2017', title: 'Crescimento', desc: 'Expansão do catálogo para canecas, camisetas e chaveiros. Primeiros pedidos de outros estados.' },

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { getProductById, calculatePrice } from '../utils/products'
 import { useCart } from '../utils/cartContext'
+import { useSEO } from '../utils/useSEO'
 import ViewingBadge from '../components/ViewingBadge'
 import ImageGallery from '../components/ImageGallery'
 
@@ -10,6 +11,12 @@ export default function ProdutoDetalhe() {
   const navigate = useNavigate()
   const product = getProductById(id)
   const { addItem } = useCart()
+  const [addedToCart, setAddedToCart] = useState(false)
+  
+  useSEO({
+    title: product ? `${product.name} | Fina Estampa` : 'Produto | Fina Estampa',
+    description: product ? product.description.slice(0, 160) : 'Produto personalizado da Fina Estampa.',
+  })
   
   const [selectedImage, setSelectedImage] = useState(0)
   const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] || '')
@@ -40,8 +47,9 @@ export default function ProdutoDetalhe() {
       selectedColor
     }, quantity)
     
-    // Show toast or notification (simplified)
-    alert(`${quantity}x ${product.name} adicionado ao carrinho!`)
+    // Feedback visual
+    setAddedToCart(true)
+    setTimeout(() => setAddedToCart(false), 2000)
   }
   
   const handleBuyNow = () => {
@@ -238,9 +246,13 @@ export default function ProdutoDetalhe() {
               
               <button
                 onClick={handleAddToCart}
-                className="btn btn-outline w-full text-lg py-4"
+                className={`btn w-full text-lg py-4 transition-all duration-300 ${
+                  addedToCart 
+                    ? 'bg-green-500 text-white border-green-500' 
+                    : 'btn-outline'
+                }`}
               >
-                Adicionar ao Carrinho
+                {addedToCart ? '✓ Adicionado!' : 'Adicionar ao Carrinho'}
               </button>
               
               {product.customizable && (

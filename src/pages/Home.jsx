@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { getFeaturedProducts } from '../utils/products'
 import { useCart } from '../utils/cartContext'
+import { useSEO } from '../utils/useSEO'
 import ReviewCard, { sampleReviews } from '../components/ReviewCard'
 import ParallaxSection from '../components/ParallaxSection'
 import CountUp from '../components/CountUp'
@@ -8,6 +9,11 @@ import ShineButton from '../components/ShineButton'
 import { motion } from 'framer-motion'
 
 export default function Home() {
+  useSEO({
+    title: 'Fina Estampa - Produtos Personalizados | Desde 2015',
+    description: 'Produtos personalizados únicos e exclusivos. Canecas, camisetas, chaveiros com sublimação profissional. Atendimento direto com a proprietária em Capão da Canoa/RS.',
+  })
+  
   const featured = getFeaturedProducts()
   const { addItem } = useCart()
   

@@ -2,9 +2,15 @@ import { useState, useRef, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { products } from '../utils/products'
 import { useCart } from '../utils/cartContext'
+import { useSEO } from '../utils/useSEO'
 import { motion } from 'framer-motion'
 
 export default function Personalizar() {
+  useSEO({
+    title: 'Personalizar Produto | Crie seu Design - Fina Estampa',
+    description: 'Personalize seu produto com nossa ferramenta online. Faça upload da sua arte e veja o resultado em tempo real. Canecas, camisetas e mais.',
+  })
+  
   const [searchParams] = useSearchParams()
   const productId = searchParams.get('produto')
   const navigate = useNavigate()

@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../utils/cartContext'
+import { useSEO } from '../utils/useSEO'
 
 export default function Carrinho() {
+  useSEO({
+    title: 'Carrinho de Compras | Fina Estampa',
+    description: 'Revise seus produtos personalizados antes de finalizar a compra.',
+  })
+  
   const { items, removeItem, updateQuantity, total, clearCart } = useCart()
   
   if (items.length === 0) {

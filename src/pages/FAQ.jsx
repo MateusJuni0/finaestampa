@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useSEO } from '../utils/useSEO'
 
 const faqCategories = [
   {
@@ -134,6 +135,11 @@ const faqCategories = [
 ]
 
 export default function FAQ() {
+  useSEO({
+    title: 'Perguntas Frequentes | FAQ - Fina Estampa',
+    description: 'Tire suas dúvidas sobre personalização, pagamentos, entrega, garantia e mais. Respostas completas sobre produtos personalizados da Fina Estampa.',
+  })
+  
   const [activeCategory, setActiveCategory] = useState(0)
   const [openQuestion, setOpenQuestion] = useState(null)
   

@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../utils/cartContext'
+import { useSEO } from '../utils/useSEO'
 import PIXPayment from '../components/PIXPayment'
 
 export default function Checkout() {
+  useSEO({
+    title: 'Finalizar Compra | Checkout - Fina Estampa',
+    description: 'Finalize sua compra com segurança. Pagamento via PIX ou cartão de crédito.',
+  })
+  
   const navigate = useNavigate()
   const { items, total, clearCart } = useCart()
   const [step, setStep] = useState(1)
