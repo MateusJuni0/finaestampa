@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../utils/cartContext'
+import PIXPayment from '../components/PIXPayment'
 
 export default function Checkout() {
   const navigate = useNavigate()
   const { items, total, clearCart } = useCart()
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
+  const [orderId, setOrderId] = useState(null)
   
   const [formData, setFormData] = useState({
     name: '',
@@ -50,11 +52,26 @@ export default function Checkout() {
     e.preventDefault()
     setLoading(true)
     
-    // Simulated payment processing
+    // Gera ID do pedido
+    const newOrderId = 'FE' + Date.now().toString().slice(-8)
+    setOrderId(newOrderId)
+    
+    // Se for PIX, vai para tela de pagamento (step 3)
+    if (formData.paymentMethod === 'pix') {
+      setLoading(false)
+      setStep(3)
+      return
+    }
+    
+    // Para cartão, processa direto (simulado)
     await new Promise(resolve => setTimeout(resolve, 2000))
     
-    // Send email notification (simulated)
+    finishOrder(newOrderId)
+  }
+  
+  const finishOrder = (orderIdToUse) => {
     const orderData = {
+      orderId: orderIdToUse,
       items,
       total: total + (shipping?.price || 0),
       customer: formData,
@@ -279,6 +296,14 @@ export default function Checkout() {
                     </button>
                   </div>
                 </>
+              )}
+              
+              {step === 3 && formData.paymentMethod === 'pix' && (
+                <PIXPayment
+                  amount={orderTotal}
+                  orderId={orderId}
+                  onSuccess={() => finishOrder(orderId)}
+                />
               )}
             </form>
           </div>
