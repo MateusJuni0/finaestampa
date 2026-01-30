@@ -286,6 +286,109 @@ export default function ProdutoDetalhe() {
             </div>
           </div>
         </div>
+        
+        {/* Especificações Técnicas e Cuidados */}
+        <div className="mt-16 grid md:grid-cols-2 gap-8">
+          {/* Especificações */}
+          {product.specs && Object.keys(product.specs).length > 0 && (
+            <div className="card animate-in">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <span className="text-2xl">📋</span> Especificações Técnicas
+              </h3>
+              <div className="space-y-3">
+                {Object.entries(product.specs).map(([key, value]) => (
+                  <div key={key} className="flex justify-between py-2 border-b border-white/10 last:border-0">
+                    <span className="text-white/60 capitalize">{key.replace(/_/g, ' ')}</span>
+                    <span className="font-medium text-right max-w-[60%]">{value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Cuidados */}
+          <div className="card animate-in" style={{ animationDelay: '100ms' }}>
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+              <span className="text-2xl">💡</span> Cuidados com o Produto
+            </h3>
+            
+            {product.careInstructions ? (
+              <p className="text-white/70 leading-relaxed mb-6">{product.careInstructions}</p>
+            ) : (
+              <p className="text-white/70 leading-relaxed mb-6">
+                Produtos personalizados requerem cuidados especiais para manter a qualidade da impressão.
+              </p>
+            )}
+            
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-sm">✓</span>
+                </div>
+                <div>
+                  <div className="font-medium text-sm">Lavagem</div>
+                  <div className="text-xs text-white/60">Água fria ou morna, sabão neutro</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-sm">✓</span>
+                </div>
+                <div>
+                  <div className="font-medium text-sm">Secagem</div>
+                  <div className="text-xs text-white/60">À sombra, evitar exposição direta ao sol</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-sm">✕</span>
+                </div>
+                <div>
+                  <div className="font-medium text-sm">Evitar</div>
+                  <div className="text-xs text-white/60">Alvejante, esponjas abrasivas, torcer</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Garantia */}
+            <div className="mt-6 p-4 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-xl border border-cyan-500/20">
+              <div className="flex items-center gap-3">
+                <div className="text-3xl">🛡️</div>
+                <div>
+                  <div className="font-bold">Garantia Fina Estampa</div>
+                  <div className="text-sm text-white/70">Se houver defeito de fabricação, trocamos sem custo!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Tabela de Medidas (se existir sizeDimensions) */}
+        {product.sizeDimensions && Object.keys(product.sizeDimensions).length > 0 && (
+          <div className="mt-8 card animate-in">
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+              <span className="text-2xl">📏</span> Tabela de Medidas
+            </h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-white/20">
+                    <th className="text-left py-3 px-4 font-semibold">Tamanho</th>
+                    <th className="text-left py-3 px-4 font-semibold">Medidas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(product.sizeDimensions).map(([size, dimensions]) => (
+                    <tr key={size} className="border-b border-white/10 hover:bg-white/5">
+                      <td className="py-3 px-4 font-medium">{size}</td>
+                      <td className="py-3 px-4 text-white/70">{dimensions}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
