@@ -1,4 +1,17 @@
+# robots.txt para Fina Estampa
 User-agent: *
 Allow: /
 
+# Sitemap
 Sitemap: https://finaestampas.com.br/sitemap.xml
+
+# Bloquear páginas administrativas (quando existirem)
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /carrinho/
+
+# Permitir tudo exceto o bloqueado
+Allow: /produtos/
+Allow: /personalizar/
+Allow: /sobre/
+Allow: /faq/

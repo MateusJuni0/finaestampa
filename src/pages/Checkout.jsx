@@ -69,7 +69,7 @@ export default function Checkout() {
     finishOrder(newOrderId)
   }
   
-  const finishOrder = (orderIdToUse) => {
+  const finishOrder = async (orderIdToUse) => {
     const orderData = {
       orderId: orderIdToUse,
       items,
@@ -79,6 +79,23 @@ export default function Checkout() {
     }
     
     console.log('Order placed:', orderData)
+    
+    // Tenta enviar email (não bloqueia se falhar)
+    try {
+      const response = await fetch('/api/send-order-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      })
+      
+      if (response.ok) {
+        console.log('✅ Email enviado com sucesso')
+      } else {
+        console.warn('⚠️ Erro ao enviar email, mas pedido foi registrado')
+      }
+    } catch (error) {
+      console.warn('⚠️ Não foi possível enviar email:', error)
+    }
     
     // Clear cart and show success
     clearCart()
