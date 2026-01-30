@@ -1,21 +1,28 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { useCart } from '../utils/cartContext'
+import ShineButton from './ShineButton'
 
 export default function ProductCard({ product, index = 0 }) {
   const { addItem } = useCart()
   
   return (
-    <div
-      className="card card-hover group animate-in"
-      style={{ animationDelay: `${index * 50}ms` }}
+    <motion.div
+      className="card group glow"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.05, duration: 0.4 }}
+      whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
     >
       <Link to={`/produto/${product.slug}`} className="block">
-        <div className="relative overflow-hidden rounded-xl mb-4">
-          <img
+        <div className="relative overflow-hidden rounded-xl mb-4 shine-effect">
+          <motion.img
             src={product.images[0]}
             alt={product.name}
-            className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-64 object-cover"
             loading="lazy"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.5 }}
           />
           
           {/* Badges */}
@@ -53,12 +60,12 @@ export default function ProductCard({ product, index = 0 }) {
         </div>
       </Link>
       
-      <button
+      <ShineButton
         onClick={() => addItem(product)}
-        className="btn btn-primary w-full"
+        className="btn btn-primary w-full ripple"
       >
         Adicionar ao Carrinho
-      </button>
-    </div>
+      </ShineButton>
+    </motion.div>
   )
 }

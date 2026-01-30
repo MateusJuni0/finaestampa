@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { getProductById, calculatePrice } from '../utils/products'
 import { useCart } from '../utils/cartContext'
+import ViewingBadge from '../components/ViewingBadge'
+import ImageGallery from '../components/ImageGallery'
 
 export default function ProdutoDetalhe() {
   const { id } = useParams()
@@ -51,13 +53,16 @@ export default function ProdutoDetalhe() {
     <div className="py-12">
       <div className="container-custom">
         {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm mb-8 animate-in">
-          <Link to="/" className="text-white/60 hover:text-white transition-colors">Início</Link>
-          <span className="text-white/40">/</span>
-          <Link to="/produtos" className="text-white/60 hover:text-white transition-colors">Produtos</Link>
-          <span className="text-white/40">/</span>
-          <span className="text-white">{product.name}</span>
-        </nav>
+        <div className="flex items-center justify-between mb-8 animate-in">
+          <nav className="flex items-center space-x-2 text-sm">
+            <Link to="/" className="text-white/60 hover:text-white transition-colors">Início</Link>
+            <span className="text-white/40">/</span>
+            <Link to="/produtos" className="text-white/60 hover:text-white transition-colors">Produtos</Link>
+            <span className="text-white/40">/</span>
+            <span className="text-white">{product.name}</span>
+          </nav>
+          <ViewingBadge />
+        </div>
         
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Images */}

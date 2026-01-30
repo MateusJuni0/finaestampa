@@ -2,6 +2,10 @@ import { Link } from 'react-router-dom'
 import { getFeaturedProducts } from '../utils/products'
 import { useCart } from '../utils/cartContext'
 import ReviewCard, { sampleReviews } from '../components/ReviewCard'
+import ParallaxSection from '../components/ParallaxSection'
+import CountUp from '../components/CountUp'
+import ShineButton from '../components/ShineButton'
+import { motion } from 'framer-motion'
 
 export default function Home() {
   const featured = getFeaturedProducts()
@@ -34,10 +38,14 @@ export default function Home() {
     <div className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center">
-        {/* Animated Background */}
+        {/* Animated Background with Parallax */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-[800px] h-[800px] -top-40 -left-40 bg-cyan-500/30 rounded-full blur-3xl animate-pulse float-slow"></div>
-          <div className="absolute w-[600px] h-[600px] -bottom-40 -right-40 bg-blue-600/20 rounded-full blur-3xl animate-pulse float-medium"></div>
+          <ParallaxSection speed={-0.3}>
+            <div className="absolute w-[800px] h-[800px] -top-40 -left-40 bg-cyan-500/30 rounded-full blur-3xl animate-pulse float-slow"></div>
+          </ParallaxSection>
+          <ParallaxSection speed={-0.5}>
+            <div className="absolute w-[600px] h-[600px] -bottom-40 -right-40 bg-blue-600/20 rounded-full blur-3xl animate-pulse float-medium"></div>
+          </ParallaxSection>
         </div>
         
         <div className="container-custom relative z-10">
@@ -60,31 +68,54 @@ export default function Home() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/produtos" className="btn btn-primary text-lg">
-                  Ver Produtos
-                  <svg className="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
+                <Link to="/produtos">
+                  <ShineButton className="btn btn-primary text-lg w-full sm:w-auto ripple">
+                    Ver Produtos
+                    <svg className="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </ShineButton>
                 </Link>
-                <Link to="/personalizar" className="btn btn-outline text-lg">
-                  Personalizar
+                <Link to="/personalizar">
+                  <ShineButton className="btn btn-outline text-lg w-full sm:w-auto ripple">
+                    Personalizar
+                  </ShineButton>
                 </Link>
               </div>
               
-              {/* Stats */}
+              {/* Stats with CountUp */}
               <div className="grid grid-cols-3 gap-4 pt-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold gradient-text">10+</div>
+                <motion.div 
+                  className="text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <div className="text-3xl font-bold gradient-text">
+                    <CountUp end={10} suffix="+" />
+                  </div>
                   <div className="text-sm text-white/60">Anos de Experiência</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold gradient-text">1000+</div>
+                </motion.div>
+                <motion.div 
+                  className="text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <div className="text-3xl font-bold gradient-text">
+                    <CountUp end={1000} suffix="+" />
+                  </div>
                   <div className="text-sm text-white/60">Clientes Satisfeitos</div>
-                </div>
-                <div className="text-center">
+                </motion.div>
+                <motion.div 
+                  className="text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                >
                   <div className="text-3xl font-bold gradient-text">24h</div>
                   <div className="text-sm text-white/60">Entrega Expressa</div>
-                </div>
+                </motion.div>
               </div>
             </div>
             
