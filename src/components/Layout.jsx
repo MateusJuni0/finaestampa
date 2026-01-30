@@ -1,5 +1,6 @@
 import Header from './Header'
 import Footer from './Footer'
+import ScrollToTop from './ScrollToTop'
 import { CartProvider } from '../utils/cartContext'
 
 export default function Layout({ children }) {
@@ -11,6 +12,7 @@ export default function Layout({ children }) {
           {children}
         </main>
         <Footer />
+        <ScrollToTop />
       </div>
     </CartProvider>
   )
