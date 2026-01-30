@@ -32,8 +32,10 @@ export default function Checkout() {
   })
   
   const [shipping, setShipping] = useState(null)
+  const [orderCompleted, setOrderCompleted] = useState(false)
   
-  if (items.length === 0) {
+  // Só redireciona para carrinho se não tiver items E não estiver com pedido finalizado
+  if (items.length === 0 && !orderCompleted && step < 3) {
     navigate('/carrinho')
     return null
   }
@@ -76,6 +78,10 @@ export default function Checkout() {
   }
   
   const finishOrder = async (orderIdToUse) => {
+    // Marca pedido como finalizado ANTES de limpar carrinho
+    // para evitar redirecionamento indesejado
+    setOrderCompleted(true)
+    
     const orderData = {
       orderId: orderIdToUse,
       items,
