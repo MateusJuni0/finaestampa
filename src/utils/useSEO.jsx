@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 export function useSEO({ 
   title = 'Fina Estampa - Produtos Personalizados', 
   description = 'Produtos personalizados únicos e exclusivos desde 2015. Canecas, camisetas, chaveiros e muito mais.',
-  image = 'https://finaestampas.com.br/imagem/logonome.jpeg',
+  image = 'https://finaestampas.com.br/imagem/logonome.png',
   url = 'https://finaestampas.com.br'
 }) {
   useEffect(() => {

@@ -42,7 +42,7 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
             <img
-              src="/imagem/logolimpa.jpeg"
+              src="/imagem/logolimpa.png"
               alt="Fina Estampa"
               className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
               style={{ 
