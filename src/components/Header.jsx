@@ -26,6 +26,7 @@ export default function Header() {
     { name: 'Personalizar', path: '/personalizar' },
     { name: 'Sobre', path: '/sobre' },
     { name: 'FAQ', path: '/faq' },
+    { name: 'Contato', path: '/contato' },
   ]
   
   const cartItemCount = items.reduce((sum, item) => sum + item.quantity, 0)

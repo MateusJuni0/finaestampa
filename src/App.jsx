@@ -8,8 +8,10 @@ import Carrinho from './pages/Carrinho'
 import Checkout from './pages/Checkout'
 import Sobre from './pages/Sobre'
 import FAQ from './pages/FAQ'
+import Contato from './pages/Contato'
 import Termos from './pages/Termos'
 import Privacidade from './pages/Privacidade'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -23,8 +25,10 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/contato" element={<Contato />} />
         <Route path="/termos" element={<Termos />} />
         <Route path="/privacidade" element={<Privacidade />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
   )
