@@ -1,19 +1,58 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { products, categories } from '../utils/products'
 import { useCart } from '../utils/cartContext'
+
+const sortOptions = [
+  { value: 'relevance', label: 'Relevância' },
+  { value: 'price-asc', label: 'Menor Preço' },
+  { value: 'price-desc', label: 'Maior Preço' },
+  { value: 'name', label: 'Nome A-Z' },
+  { value: 'discount', label: 'Maior Desconto' }
+]
 
 export default function Produtos() {
   const [selectedCategory, setSelectedCategory] = useState('todos')
   const [searchTerm, setSearchTerm] = useState('')
+  const [sortBy, setSortBy] = useState('relevance')
+  const [showOnlyPromo, setShowOnlyPromo] = useState(false)
   const { addItem } = useCart()
   
-  const filteredProducts = products.filter(product => {
-    const matchesCategory = selectedCategory === 'todos' || product.category === selectedCategory
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchTerm.toLowerCase())
-    return matchesCategory && matchesSearch
-  })
+  const filteredAndSortedProducts = useMemo(() => {
+    let result = products.filter(product => {
+      const matchesCategory = selectedCategory === 'todos' || product.category === selectedCategory
+      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      const matchesPromo = !showOnlyPromo || (product.originalPrice && product.originalPrice > product.price)
+      return matchesCategory && matchesSearch && matchesPromo
+    })
+    
+    // Ordenação
+    switch (sortBy) {
+      case 'price-asc':
+        result.sort((a, b) => a.price - b.price)
+        break
+      case 'price-desc':
+        result.sort((a, b) => b.price - a.price)
+        break
+      case 'name':
+        result.sort((a, b) => a.name.localeCompare(b.name))
+        break
+      case 'discount':
+        result.sort((a, b) => {
+          const discountA = a.originalPrice ? (1 - a.price / a.originalPrice) : 0
+          const discountB = b.originalPrice ? (1 - b.price / b.originalPrice) : 0
+          return discountB - discountA
+        })
+        break
+      default:
+        // relevance - featured first
+        result.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
+    }
+    
+    return result
+  }, [selectedCategory, searchTerm, sortBy, showOnlyPromo])
   
   return (
     <div className="py-12">
@@ -75,15 +114,48 @@ export default function Produtos() {
           </div>
         </div>
         
-        {/* Results Count */}
-        <div className="mb-6 text-center text-white/60 animate-in" style={{ animationDelay: '300ms' }}>
-          Mostrando {filteredProducts.length} {filteredProducts.length === 1 ? 'produto' : 'produtos'}
-        </div>
+        {/* Sort and Filter Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex flex-wrap items-center justify-between gap-4 mb-8"
+        >
+          <div className="text-white/60">
+            Mostrando <span className="font-bold text-white">{filteredAndSortedProducts.length}</span> {filteredAndSortedProducts.length === 1 ? 'produto' : 'produtos'}
+          </div>
+          
+          <div className="flex flex-wrap items-center gap-4">
+            {/* Promo Filter */}
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={showOnlyPromo}
+                onChange={(e) => setShowOnlyPromo(e.target.checked)}
+                className="w-4 h-4 rounded accent-cyan-500"
+              />
+              <span className="text-sm text-white/70">Só promoções</span>
+            </label>
+            
+            {/* Sort */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="input py-2 px-4 text-sm w-auto"
+            >
+              {sortOptions.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </motion.div>
         
         {/* Products Grid */}
-        {filteredProducts.length > 0 ? (
+        {filteredAndSortedProducts.length > 0 ? (
           <div className="product-grid">
-            {filteredProducts.map((product, index) => (
+            {filteredAndSortedProducts.map((product, index) => (
               <div
                 key={product.id}
                 className="card card-hover group animate-in"
