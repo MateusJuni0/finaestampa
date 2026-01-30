@@ -141,9 +141,11 @@
   }
 }
 
-/* Custom Cursor */
-* {
-  cursor: none !important;
+/* Custom Cursor - apenas em desktop com mouse */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
 }
 
 /* Shine Effect */

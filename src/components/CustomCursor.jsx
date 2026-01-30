@@ -3,10 +3,25 @@ import { useEffect, useState } from 'react'
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isPointer, setIsPointer] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState(true)
   
   useEffect(() => {
+    // Detecta se é dispositivo touch
+    const checkTouch = () => {
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches
+      setIsTouchDevice(hasTouch && hasCoarsePointer)
+    }
+    
+    checkTouch()
+    
+    // Se for touch device, não mostra cursor customizado
+    if (isTouchDevice) return
+    
     const updatePosition = (e) => {
       setPosition({ x: e.clientX, y: e.clientY })
+      setIsVisible(true)
     }
     
     const updateCursor = (e) => {
@@ -20,14 +35,24 @@ export default function CustomCursor() {
       )
     }
     
+    const handleMouseLeave = () => setIsVisible(false)
+    const handleMouseEnter = () => setIsVisible(true)
+    
     window.addEventListener('mousemove', updatePosition)
     window.addEventListener('mouseover', updateCursor)
+    document.body.addEventListener('mouseleave', handleMouseLeave)
+    document.body.addEventListener('mouseenter', handleMouseEnter)
     
     return () => {
       window.removeEventListener('mousemove', updatePosition)
       window.removeEventListener('mouseover', updateCursor)
+      document.body.removeEventListener('mouseleave', handleMouseLeave)
+      document.body.removeEventListener('mouseenter', handleMouseEnter)
     }
-  }, [])
+  }, [isTouchDevice])
+  
+  // Não renderiza em dispositivos touch
+  if (isTouchDevice || !isVisible) return null
   
   return (
     <>

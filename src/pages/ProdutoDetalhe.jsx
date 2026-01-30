@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { getProductById, calculatePrice } from '../utils/products'
 import { useCart } from '../utils/cartContext'
 import { useSEO } from '../utils/useSEO'
+import { useToast } from '../components/Toast'
 import ViewingBadge from '../components/ViewingBadge'
 import ImageGallery from '../components/ImageGallery'
 
@@ -11,6 +12,7 @@ export default function ProdutoDetalhe() {
   const navigate = useNavigate()
   const product = getProductById(id)
   const { addItem } = useCart()
+  const { addToast } = useToast()
   const [addedToCart, setAddedToCart] = useState(false)
   
   useSEO({
@@ -49,6 +51,7 @@ export default function ProdutoDetalhe() {
     
     // Feedback visual
     setAddedToCart(true)
+    addToast(`${quantity}x ${product.name} adicionado ao carrinho!`, 'success')
     setTimeout(() => setAddedToCart(false), 2000)
   }
   
