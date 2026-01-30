@@ -44,6 +44,11 @@ export default function Header() {
               src="/imagem/logolimpa.jpeg"
               alt="Fina Estampa"
               className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
+              style={{ 
+                mixBlendMode: 'multiply', 
+                filter: 'brightness(1.2) contrast(1.1)',
+                backgroundColor: 'transparent'
+              }}
             />
             <span className="text-xl font-display font-bold hidden sm:block">
               Fina <span className="gradient-text">Estampa</span>

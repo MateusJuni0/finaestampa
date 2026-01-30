@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { products } from '../utils/products'
 import { useCart } from '../utils/cartContext'
+import { motion } from 'framer-motion'
 
 export default function Personalizar() {
   const [searchParams] = useSearchParams()
@@ -101,6 +102,15 @@ export default function Personalizar() {
     
     alert('✅ Produto personalizado adicionado ao carrinho!')
     navigate('/carrinho')
+  }
+  
+  const handleTest3D = () => {
+    if (!uploadedImage) {
+      alert('⚠️ Faça upload de uma imagem primeiro para testar!')
+      return
+    }
+    // Scroll suave até o preview 3D
+    containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
   
   return (
@@ -259,13 +269,28 @@ export default function Personalizar() {
                 </div>
               </div>
               
-              <button
+              <motion.button
                 onClick={handleAddToCart}
                 disabled={!uploadedImage}
-                className="btn btn-primary w-full text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn btn-primary w-full text-lg disabled:opacity-50 disabled:cursor-not-allowed ripple glow"
+                whileHover={uploadedImage ? { scale: 1.02 } : {}}
+                whileTap={uploadedImage ? { scale: 0.98 } : {}}
               >
-                {uploadedImage ? 'Adicionar ao Carrinho' : 'Faça upload da sua arte'}
-              </button>
+                {uploadedImage ? '✓ Adicionar ao Carrinho' : '⬆️ Faça upload da sua arte primeiro'}
+              </motion.button>
+              
+              {uploadedImage && (
+                <motion.button
+                  onClick={handleTest3D}
+                  className="btn btn-outline w-full text-sm"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  👁️ Ver Preview 3D
+                </motion.button>
+              )}
             </div>
           </div>
           
@@ -347,7 +372,23 @@ export default function Personalizar() {
                 
                 {/* Drag indicator */}
                 {uploadedImage && isDragging && (
-                  <div className="absolute inset-0 bg-cyan-500/10 border-2 border-dashed border-cyan-500 rounded-2xl"></div>
+                  <motion.div 
+                    className="absolute inset-0 bg-cyan-500/10 border-2 border-dashed border-cyan-500 rounded-2xl"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  />
+                )}
+                
+                {/* Ajuda visual quando tem imagem */}
+                {uploadedImage && !isDragging && (
+                  <motion.div 
+                    className="absolute bottom-4 left-1/2 -translate-x-1/2 glass px-4 py-2 rounded-full text-xs pointer-events-none"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 0.7, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    💡 Arraste a imagem para posicionar
+                  </motion.div>
                 )}
               </div>
               

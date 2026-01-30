@@ -127,14 +127,15 @@ export default function Home() {
                   alt="Produtos Personalizados"
                   className="w-full h-auto rounded-2xl shadow-2xl"
                 />
-                <div className="absolute -bottom-6 -left-6 glass rounded-2xl p-4 backdrop-blur-xl">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center">
-                      <span className="text-2xl">⭐</span>
+                {/* Badge corrigida para mobile */}
+                <div className="absolute bottom-4 left-4 right-4 md:bottom-auto md:right-auto md:-bottom-6 md:-left-6 glass rounded-2xl p-3 md:p-4 backdrop-blur-xl">
+                  <div className="flex items-center space-x-2 md:space-x-3">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-xl md:text-2xl">⭐</span>
                     </div>
-                    <div>
-                      <div className="font-bold">Qualidade Premium</div>
-                      <div className="text-sm text-white/60">Sublimação profissional</div>
+                    <div className="min-w-0">
+                      <div className="font-bold text-sm md:text-base">Qualidade Premium</div>
+                      <div className="text-xs md:text-sm text-white/60">Sublimação profissional</div>
                     </div>
                   </div>
                 </div>

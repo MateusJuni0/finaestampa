@@ -14,6 +14,11 @@ export default function Footer() {
                 src="/imagem/logonome.jpeg"
                 alt="Fina Estampa"
                 className="h-16 w-auto object-contain"
+                style={{ 
+                  mixBlendMode: 'screen', 
+                  filter: 'brightness(1.1)',
+                  backgroundColor: 'transparent'
+                }}
               />
             </Link>
             <p className="text-white/60 text-sm leading-relaxed">
