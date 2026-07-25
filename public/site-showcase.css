@@ -1,0 +1,30 @@
+.showcase-dark{background:#090b10;color:#fff}
+.showcase-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.showcase-grid article,.testimonial-grid article{border:1px solid #ffffff22;background:#ffffff09;padding:26px;text-align:center}
+.showcase-grid i{font-size:38px;font-style:normal}
+.showcase-grid h3{font:800 20px Manrope;margin:15px 0 8px}
+.showcase-grid p{margin:0;color:#b5bcc3;font-size:14px;line-height:1.5}
+.showcase-title{text-align:center;margin-bottom:40px}
+.showcase-title h2{font-size:clamp(36px,4.5vw,54px)}
+.showcase-title h2 em{color:#23c6e7;font-style:normal}
+.showcase-title p{color:#b5bcc3}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.process-grid article{text-align:center;position:relative}
+.process-grid b{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#16b8d4;color:#fff;font-size:12px}
+.process-grid i{display:block;font-style:normal;font-size:32px;margin:13px}
+.process-grid h3{font:800 19px Manrope}
+.process-grid p{color:#b5bcc3;font-size:14px;line-height:1.5}
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.testimonial-grid article{display:flex;text-align:left;gap:14px}
+.testimonial-grid article>b{flex:0 0 46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#123f4a;color:#36d1e8}
+.testimonial-grid h3{font:800 15px Manrope;margin:2px 0 7px}
+.testimonial-grid h3 span{color:#ffd545;white-space:nowrap}
+.testimonial-grid p{color:#c1c7cc;font-size:13px;line-height:1.5;margin:0}
+@media(max-width:850px){.showcase-grid,.process-grid{grid-template-columns:repeat(2,1fr)}
+.testimonial-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){.showcase-grid,.process-grid,.testimonial-grid{grid-template-columns:1fr}
+}
+.card .price[hidden]{display:none}
+.product-whatsapp{display:block;margin-top:14px;padding:12px 10px;border-radius:8px;background:#25d366;color:#fff!important;text-align:center;font:800 12px Manrope;text-decoration:none;box-shadow:0 8px 15px rgba(37,211,102,.22)}
+.product-whatsapp:hover{background:#1fba5a}
