@@ -1,5 +1,5 @@
 {
   "framework": null,
-  "buildCommand": "cp index.html site-extra.css site-extra.js site-showcase.css site-showcase.js public/",
+  "buildCommand": "cp index.html site-extra.css site-extra.js site-showcase.css site-showcase.js robots.txt sitemap.xml public/",
   "outputDirectory": "public"
 }
